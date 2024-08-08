@@ -16,8 +16,8 @@ import java.util.Optional;
 @Service
 public class UserServiceImpl implements UserService {
 
-    private UserRepository userRepository;
-    private UserConverter userConverter;
+    private final UserRepository userRepository;
+    private final UserConverter userConverter;
 
     public UserServiceImpl(UserRepository userRepository, UserConverter userConverter) {
         this.userRepository = userRepository;

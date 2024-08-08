@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class PlanConverter {
 
-    private UserService userService;
-    private UserConverter userConverter;
+    private final UserService userService;
+    private final UserConverter userConverter;
 
     public PlanConverter(UserService userService, UserConverter userConverter) {
         this.userService = userService;
