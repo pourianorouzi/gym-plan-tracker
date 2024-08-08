@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -46,6 +47,22 @@ public class UserServiceImpl implements UserService {
             userEntity = userRepository.save(userEntity);
             return userConverter.convertEntityToDTO(userEntity);
         } else {
+            throw new BusinessException(businessErrors);
+        }
+    }
+
+    @Override
+    public UserDTO getUser(Long id) {
+        Optional<UserEntity> userEntityOptional = userRepository.findById(id);
+
+        if (userEntityOptional.isPresent()) {
+            return userConverter.convertEntityToDTO(userEntityOptional.get());
+        } else {
+            List<BusinessError> businessErrors = new ArrayList<>();
+            BusinessError businessError = new BusinessError();
+            businessError.setCode("USER DOESN'T EXIST");
+            businessError.setMessage("User id '" + id + "' does not exist.");
+            businessErrors.add(businessError);
             throw new BusinessException(businessErrors);
         }
     }
