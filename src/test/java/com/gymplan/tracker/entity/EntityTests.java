@@ -3,10 +3,10 @@ package com.gymplan.tracker.entity;
 import org.junit.jupiter.api.Test;
 import org.meanbean.test.BeanTester;
 
-public class EntityTests {
+class EntityTests {
 
     @Test
-    public void testAllEntities() {
+    void testAllEntities() {
         BeanTester beanTester = new BeanTester();
         beanTester.testBean(UserEntity.class);
     }

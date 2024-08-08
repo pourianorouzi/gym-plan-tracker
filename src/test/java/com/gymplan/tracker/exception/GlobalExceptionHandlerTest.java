@@ -18,10 +18,9 @@ class GlobalExceptionHandlerTest {
     private GlobalExceptionHandler globalExceptionHandler;
 
 // Todo: test with WebMVC
+
 //    @Test
-//    void handleValidationErrors_() {
-//
-//    }
+//    void handleValidationErrors_()
 
     @Test
     void handleBusinessErrors_givenBusinessExceptionCaught_shouldReturnResponseEntity() {

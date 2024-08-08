@@ -6,4 +6,6 @@ public interface UserService {
 
     UserDTO createUser(UserDTO userDTO);
 
+    UserDTO getUser(Long id);
+
 }

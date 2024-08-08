@@ -11,12 +11,13 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
 
-    private UserRepository userRepository;
-    private UserConverter userConverter;
+    private final UserRepository userRepository;
+    private final UserConverter userConverter;
 
     public UserServiceImpl(UserRepository userRepository, UserConverter userConverter) {
         this.userRepository = userRepository;
@@ -43,11 +44,30 @@ public class UserServiceImpl implements UserService {
         }
 
         if (businessErrors.isEmpty()) {
+            // Set id to null to make sure another user is not updated by mistake
+            userEntity.setId(null);
             userEntity = userRepository.save(userEntity);
             return userConverter.convertEntityToDTO(userEntity);
         } else {
             throw new BusinessException(businessErrors);
         }
     }
+
+    @Override
+    public UserDTO getUser(Long id) {
+        Optional<UserEntity> userEntityOptional = userRepository.findById(id);
+
+        if (userEntityOptional.isPresent()) {
+            return userConverter.convertEntityToDTO(userEntityOptional.get());
+        } else {
+            List<BusinessError> businessErrors = new ArrayList<>();
+            BusinessError businessError = new BusinessError();
+            businessError.setCode("USER DOESN'T EXIST");
+            businessError.setMessage("User id '" + id + "' does not exist.");
+            businessErrors.add(businessError);
+            throw new BusinessException(businessErrors);
+        }
+    }
+
 
 }
