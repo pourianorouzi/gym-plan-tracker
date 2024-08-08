@@ -44,6 +44,8 @@ public class UserServiceImpl implements UserService {
         }
 
         if (businessErrors.isEmpty()) {
+            // Set id to null to make sure another user is not updated by mistake
+            userEntity.setId(null);
             userEntity = userRepository.save(userEntity);
             return userConverter.convertEntityToDTO(userEntity);
         } else {
@@ -66,5 +68,6 @@ public class UserServiceImpl implements UserService {
             throw new BusinessException(businessErrors);
         }
     }
+
 
 }

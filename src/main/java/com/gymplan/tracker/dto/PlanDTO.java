@@ -21,7 +21,7 @@ public class PlanDTO {
     @Size(min = 2, max = 25, message = "Title must be between 2 and 25 characters")
     private String title;
 
-    @Size(max = 25, message = "Description must be less than 255 characters")
+    @Size(max = 255, message = "Description must be less than 255 characters")
     private String description;
 
 }
