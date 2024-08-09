@@ -44,4 +44,9 @@ public class PlanController {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("/users/{userId}")
+    public List<PlanDTO> getPlansByUserId(@PathVariable Long userId) {
+        return planService.getExercisesByUserId(userId);
+    }
+
 }
