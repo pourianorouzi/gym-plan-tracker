@@ -18,7 +18,7 @@ public class ExerciseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "plan_id")
-    private PlanEntity planEntity;
+    private PlanEntity plan;
 
     @Column(nullable = false)
     private String title;

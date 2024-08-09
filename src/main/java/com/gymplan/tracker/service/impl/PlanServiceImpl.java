@@ -88,7 +88,7 @@ public class PlanServiceImpl implements PlanService {
         if (!userRepository.existsById(planDTO.getUserId())) {
             BusinessError businessError = new BusinessError();
             businessError.setCode("USER DOESN'T EXIST");
-            businessError.setMessage("User id '" + id + "' does not exist.");
+            businessError.setMessage("User id '" + planDTO.getUserId() + "' does not exist.");
             businessErrors.add(businessError);
         }
 

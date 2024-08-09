@@ -2,7 +2,7 @@ package com.gymplan.tracker.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.Positive;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,10 +20,10 @@ public class ExerciseDTO {
     @NotBlank
     private String title;
 
-    @Size(min = 1, message = "Sets must be a one or more")
+    @Positive(message = "Sets must be a one or more")
     private Integer sets;
 
-    @Size(min = 1, message = "Reps must be a one or more")
+    @Positive(message = "Reps must be a one or more")
     private Integer reps;
 
 }

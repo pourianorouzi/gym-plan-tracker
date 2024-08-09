@@ -3,12 +3,8 @@ package com.gymplan.tracker.converter;
 import com.gymplan.tracker.dto.ExerciseDTO;
 import com.gymplan.tracker.dto.PlanDTO;
 import com.gymplan.tracker.entity.ExerciseEntity;
-import com.gymplan.tracker.entity.PlanEntity;
-import com.gymplan.tracker.service.ExerciseService;
 import com.gymplan.tracker.service.PlanService;
 import org.springframework.stereotype.Component;
-
-import java.util.Optional;
 
 @Component
 public class ExerciseConverter {
@@ -27,7 +23,7 @@ public class ExerciseConverter {
         exerciseEntity.setId(exerciseDTO.getId());
         if (exerciseDTO.getPlanId() > 0) {
             PlanDTO planDTO = planService.getPlanById(exerciseDTO.getPlanId());
-            exerciseEntity.setPlanEntity(
+            exerciseEntity.setPlan(
                     planConverter.convertDTOtoEntity(planDTO)
             );
         }
@@ -42,7 +38,7 @@ public class ExerciseConverter {
         ExerciseDTO exerciseDTO = new ExerciseDTO();
 
         exerciseDTO.setId(exerciseEntity.getId());
-        exerciseDTO.setPlanId(exerciseEntity.getPlanEntity().getId());
+        exerciseDTO.setPlanId(exerciseEntity.getPlan().getId());
         exerciseDTO.setTitle(exerciseEntity.getTitle());
         exerciseDTO.setSets(exerciseEntity.getSets());
         exerciseDTO.setReps(exerciseEntity.getReps());
