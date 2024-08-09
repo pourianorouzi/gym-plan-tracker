@@ -6,6 +6,8 @@ public interface UserService {
 
     UserDTO createUser(UserDTO userDTO);
 
-    UserDTO getUser(Long id);
+    UserDTO findUserById(Long id);
+
+    UserDTO findUserByUsernameAndPassword(String username, String password);
 
 }

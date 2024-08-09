@@ -54,7 +54,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDTO getUser(Long id) {
+    public UserDTO findUserById(Long id) {
         Optional<UserEntity> userEntityOptional = userRepository.findById(id);
 
         if (userEntityOptional.isPresent()) {
@@ -64,6 +64,22 @@ public class UserServiceImpl implements UserService {
             BusinessError businessError = new BusinessError();
             businessError.setCode("USER DOESN'T EXIST");
             businessError.setMessage("User id '" + id + "' does not exist.");
+            businessErrors.add(businessError);
+            throw new BusinessException(businessErrors);
+        }
+    }
+
+    @Override
+    public UserDTO findUserByUsernameAndPassword(String username, String password) {
+        Optional<UserEntity> userEntityOptional = userRepository.findByUsernameAndPassword(username, password);
+
+        if (userEntityOptional.isPresent()) {
+            return userConverter.convertEntityToDTO(userEntityOptional.get());
+        } else {
+            List<BusinessError> businessErrors = new ArrayList<>();
+            BusinessError businessError = new BusinessError();
+            businessError.setCode("LOGIN FAILED");
+            businessError.setMessage("The combination of username and password is incorrect.");
             businessErrors.add(businessError);
             throw new BusinessException(businessErrors);
         }
