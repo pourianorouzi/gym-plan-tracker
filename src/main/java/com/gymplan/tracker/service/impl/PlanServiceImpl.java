@@ -88,7 +88,7 @@ public class PlanServiceImpl implements PlanService {
         if (!userRepository.existsById(planDTO.getUserId())) {
             BusinessError businessError = new BusinessError();
             businessError.setCode("USER DOESN'T EXIST");
-            businessError.setMessage("User id '" + id + "' does not exist.");
+            businessError.setMessage("User id '" + planDTO.getUserId() + "' does not exist.");
             businessErrors.add(businessError);
         }
 
@@ -106,5 +106,27 @@ public class PlanServiceImpl implements PlanService {
     @Override
     public void deletePlan(Long id) {
         planRepository.deleteById(id);
+    }
+
+    @Override
+    public List<PlanDTO> getExercisesByUserId(Long userId) {
+        List<BusinessError> businessErrors = new ArrayList<>();
+        if (!userRepository.existsById(userId)) {
+            BusinessError businessError = new BusinessError();
+            businessError.setCode("USER DOESN'T EXIST");
+            businessError.setMessage("User id '" + userId + "' does not exist.");
+            businessErrors.add(businessError);
+        }
+
+        if (businessErrors.isEmpty()) {
+            List<PlanDTO> planDTOs = new ArrayList<>();
+            for (PlanEntity planEntity : planRepository.findAllByUserId(userId)) {
+                PlanDTO planDTO = planConverter.convertEntityToDTO(planEntity);
+                planDTOs.add(planDTO);
+            }
+            return planDTOs;
+        } else {
+            throw new BusinessException(businessErrors);
+        }
     }
 }

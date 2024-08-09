@@ -16,6 +16,6 @@ public interface PlanRepository extends CrudRepository<PlanEntity, Long> {
 
     Optional<PlanEntity> findById(Long id);
 
-    List<Optional<PlanEntity>> findAllByUserId(Long id);
+    List<PlanEntity> findAllByUserId(Long id);
 
 }
