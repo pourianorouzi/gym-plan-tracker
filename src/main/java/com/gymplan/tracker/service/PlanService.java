@@ -15,4 +15,6 @@ public interface PlanService {
     PlanDTO updatePlan(Long id, PlanDTO planDTO);
 
     void deletePlan(Long id);
+
+    List<PlanDTO> getExercisesByUserId(Long userId);
 }
