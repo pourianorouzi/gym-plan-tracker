@@ -24,7 +24,7 @@ public class PlanConverter {
         if (planDTO.getUserId() != null) {
             planEntity.setUser(
                     userConverter.convertDTOtoEntity(
-                            userService.getUser(planDTO.getUserId())
+                            userService.findUserById(planDTO.getUserId())
                     )
             );
         }
